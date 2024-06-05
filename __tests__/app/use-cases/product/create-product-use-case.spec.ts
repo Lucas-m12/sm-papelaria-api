@@ -28,4 +28,33 @@ describe("CreateProductUseCase", () => {
     expect(createdProduct?.description).toBe("A high-quality notebook");
     expect(createdProduct?.category).toBe("Stationery");
   });
+
+  it("should not create a product with an existing id", async () => {
+    const mockProductRepository = new MockProductRepository();
+    const createProductUseCase = new CreateProductUseCase(
+      mockProductRepository
+    );
+
+    const productDTO = new ProductDTO(
+      '1',
+      "Notebook",
+      "NB001",
+      "A high-quality notebook",
+      "Stationery",
+    );
+
+    await createProductUseCase.execute(productDTO);
+
+    const productDTO2 = new ProductDTO(
+      '1',
+      "Notebook",
+      "NB001",
+      "A high-quality notebook",
+      "Stationery",
+    );
+
+    expect(() => createProductUseCase.execute(productDTO2)).toThrow(
+      "Product with id 1 already exists"
+    );
+  });
 });

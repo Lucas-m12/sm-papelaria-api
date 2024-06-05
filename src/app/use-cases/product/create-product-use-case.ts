@@ -1,13 +1,12 @@
-import { Product } from "../../../domain/entities/product";
+import { ProductFactory } from "../../../domain/factories/product-factory";
 import type { ProductRepository } from "../../../domain/repositories/product-repository";
-import type { ProductDTO } from "../../dtos/product-dto";
+import type { CreateProductDTO } from "../../dtos/create-product-dto";
 
 export class CreateProductUseCase {
   constructor(private productRepository: ProductRepository) {}
 
-  async execute(productDTO: ProductDTO): Promise<void> {
-    const product = new Product(
-      productDTO.id,
+  async execute(productDTO: CreateProductDTO): Promise<void> {
+    const product = ProductFactory.create(
       productDTO.name,
       productDTO.code,
       productDTO.description,

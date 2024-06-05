@@ -2,15 +2,15 @@ export class Product {
   #id: string;
   #name: string;
   #code: string;
-  #description?: string;
-  #category?: string;
+  #description?: string | null;
+  #category?: string | null; 
 
   constructor(
     id: string,
     name: string,
     code: string,
-    description?: string,
-    category?: string
+    description?: string | null,
+    category?: string | null 
   ) {
     this.#id = id;
     this.#name = name;

@@ -47,4 +47,23 @@ describe("UpdateProductUseCase", () => {
     expect(updatedProduct?.description).toBe("An updated high-quality notebook");
     expect(updatedProduct?.category).toBe("Stationery");
   });
+
+  it("should not update a product that does not exist", async () => {
+    const mockProductRepository = new MockProductRepository();
+    const updateProductUseCase = new UpdateProductUseCase(
+      mockProductRepository
+    );
+
+    const productDTO = new ProductDTO(
+      '1',
+      "Notebook",
+      "NB001",
+      "A high-quality notebook",
+      "Stationery",
+    );
+
+    expect(() => updateProductUseCase.execute(productDTO)).toThrow(
+      "Product with id 1 does not exist"
+    );
+  });
 });

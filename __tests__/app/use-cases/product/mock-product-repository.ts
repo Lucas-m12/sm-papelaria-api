@@ -5,8 +5,8 @@ import type { ProductRepository } from "../../../../src/domain/repositories/prod
 export class MockProductRepository implements ProductRepository {
   private products: Product[] = [];
 
-  async findAll(): Promise<Product[]> {
-    return this.products;
+  async findAll(page = 1, pageSize = 10): Promise<Product[]> {
+    return this.products.slice((page - 1) * pageSize, page * pageSize);
   }
 
   async findById(id: string): Promise<Product | null> {
