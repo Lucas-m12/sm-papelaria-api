@@ -6,6 +6,7 @@ export const CreateProductSchema = z.object({
   code: z.string().min(1, { message: "Code is required" }),
   description: z.string().optional(),
   category: z.string().optional(),
+  filename: z.string().optional(),
 });
 
 export type CreateProductDTO = z.infer<typeof CreateProductSchema>;

@@ -2,11 +2,13 @@ import { CreateProductSchema } from "../../../app/dtos/create-product-dto";
 import { GetAllProductsSchema } from "../../../app/dtos/get-all-products-dto";
 import { UpdateProductSchema } from "../../../app/dtos/update-product-dto";
 import { CreateProductUseCase } from "../../../app/use-cases/product/create-product-use-case";
+import { CreateUrlToUploadImage } from "../../../app/use-cases/product/create-url-to-upload-image";
 import { DeleteProductUseCase } from "../../../app/use-cases/product/delete-product-use-case";
 import { GetAllProductsUseCase } from "../../../app/use-cases/product/get-all-products-use-case";
 import { GetProductByIdUseCase } from "../../../app/use-cases/product/get-product-by-id-use-case";
 import { UpdateProductUseCase } from "../../../app/use-cases/product/update-product-use-case";
-import { ValidationAdapter } from "../../../app/validators/validation-adapter";
+import { ValidationAdapter, ValidationError } from "../../../app/validators/validation-adapter";
+import { S3StorageService } from "../../adapters/s3-storage-service";
 import { PrismaProductRepository } from "../../persistence/prisma-product-repository";
 import type { HttpNextFunction, HttpRequest, HttpResponse } from "../http-adapter";
 
@@ -31,12 +33,11 @@ export class ProductController {
         .status(200)
         .json({ message: "Product created successfully" });
     } catch (error) {
-      next(error);
-      // if (error instanceof ValidationError) {
-      //   response.status(400).json({ errors: error.zodError.errors });
-      // } else {
-      //   response.status(500).json({ message: "Internal server error" });
-      // }
+      if (error instanceof ValidationError) {
+        response.status(400).json({ errors: error.zodError.errors });
+      } else {
+        response.status(500).json({ error });
+      }
     }
   }
 
@@ -53,10 +54,11 @@ export class ProductController {
       const product = await getProductByIdUseCase.execute(id);
       return response.status(200).json(product);
     } catch (error) {
-      next(error);
-      // if (!product) {
-      //   return response.status(404).json({ message: "Product not found" });
-      // }
+      if (error instanceof ValidationError) {
+        response.status(400).json({ errors: error.zodError.errors });
+      } else {
+        response.status(500).json({ error });
+      }
     }
   }
 
@@ -71,23 +73,33 @@ export class ProductController {
         request.body
       );
       const createProductUseCase = new CreateProductUseCase(productRepository);
-      await createProductUseCase.execute(productDTO);
+      const product = await createProductUseCase.execute(productDTO);
+      let presignedUrl: string | null = null;
+      if (productDTO?.filename) {
+        const storageService = new S3StorageService();
+        const createUrlToUploadImage = new CreateUrlToUploadImage(storageService);
+        presignedUrl = await createUrlToUploadImage.execute(productDTO.filename, product);
+      }
       return response
         .status(201)
-        .json({ message: "Product created successfully" });
+        .json({ product, presignedUrl });
     } catch (error) {
-      next(error);
+      if (error instanceof ValidationError) {
+        response.status(400).json({ errors: error.zodError.errors });
+      } else {
+        response.status(500).json({ error });
+      }
     }
   }
 
   async update(
-    req: HttpRequest,
-    res: HttpResponse,
+    request: HttpRequest,
+    response: HttpResponse,
     next: HttpNextFunction
   ): Promise<void> {
     try {
-      const { id } = req.params;
-      const { name, code, description, category } = req.body;
+      const { id } = request.params;
+      const { name, code, description, category } = request.body;
       const productDTO = ValidationAdapter.validate(UpdateProductSchema, {
         id,
         name,
@@ -97,24 +109,32 @@ export class ProductController {
       });
       const updateProductUseCase = new UpdateProductUseCase(productRepository);
       await updateProductUseCase.execute(productDTO);
-      res.status(200).json({ message: "Product updated successfully" });
+      response.status(200).json({ message: "Product updated successfully" });
     } catch (error) {
-      next(error);
+      if (error instanceof ValidationError) {
+        response.status(400).json({ errors: error.zodError.errors });
+      } else {
+        response.status(500).json({ error });
+      }
     }
   }
 
   async delete(
-    req: HttpRequest,
-    res: HttpResponse,
+    request: HttpRequest,
+    response: HttpResponse,
     next: HttpNextFunction
   ): Promise<void> {
     try {
-      const { id } = req.params;
+      const { id } = request.params;
       const deleteProductUseCase = new DeleteProductUseCase(productRepository);
       await deleteProductUseCase.execute(id);
-      res.status(200).json({ message: "Product deleted successfully" });
+      response.status(200).json({ message: "Product deleted successfully" });
     } catch (error) {
-      next(error);
+      if (error instanceof ValidationError) {
+        response.status(400).json({ errors: error.zodError.errors });
+      } else {
+        response.status(500).json({ error });
+      }
     }
   }
 }

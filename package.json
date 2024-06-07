@@ -17,8 +17,12 @@
   },
   "type": "module",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.592.0",
+    "@aws-sdk/s3-request-presigner": "^3.592.0",
+    "@hookform/resolvers": "^3.5.0",
     "@prisma/client": "^5.14.0",
     "express": "^4.19.2",
+    "react-hook-form": "^7.51.5",
     "supertest": "^7.0.0",
     "zod": "^3.23.8"
   }
