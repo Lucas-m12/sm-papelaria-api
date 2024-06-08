@@ -6,6 +6,3 @@ phases:
       - curl -fsSL https://bun.sh/install | bash
       - cp /root/.bun/bin/* /usr/local/bin
       - bun install --frozen-lockfile
-  post_build:
-    commands:
-      - bun start
