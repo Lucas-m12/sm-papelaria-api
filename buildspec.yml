@@ -2,11 +2,8 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      bun: 1.1.7
-  pre_build:
     commands:
-      - bun install --frozen-lockfile
+      - bun i --frozen-lockfile
   build:
     commands:
       - bun run build
