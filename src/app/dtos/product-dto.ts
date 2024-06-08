@@ -15,7 +15,7 @@ export class ProductDTO {
       product.name,
       product.code,
       product.description,
-      product.category
+      product.category,
     );
   }
 }

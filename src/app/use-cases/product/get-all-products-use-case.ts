@@ -1,5 +1,5 @@
 import type { ProductRepository } from "../../../domain/repositories/product-repository";
-import type { GetAllProductsDTO } from '../../dtos/get-all-products-dto';
+import type { GetAllProductsDTO } from "../../dtos/get-all-products-dto";
 import { ProductDTO } from "../../dtos/product-dto";
 
 export class GetAllProductsUseCase {
@@ -14,8 +14,8 @@ export class GetAllProductsUseCase {
           product.name,
           product.code,
           product.description,
-          product.category
-        )
+          product.category,
+        ),
     );
   }
 }

@@ -9,10 +9,10 @@ describe("suit test to GetStockByIdUseCase", () => {
     const mockStockRepository = new MockStockRepository();
     const getStockByIdUseCase = new GetStockByIdUseCase(mockStockRepository);
 
-    const stock = new Stock('1', '101', TransactionType.ENTRY, 50, new Date());
+    const stock = new Stock("1", "101", TransactionType.ENTRY, 50, new Date());
     await mockStockRepository.save(stock);
 
-    const foundStock = await getStockByIdUseCase.execute('1');
+    const foundStock = await getStockByIdUseCase.execute("1");
     expect(foundStock).toEqual(stock);
   });
 
@@ -20,6 +20,8 @@ describe("suit test to GetStockByIdUseCase", () => {
     const mockStockRepository = new MockStockRepository();
     const getStockByIdUseCase = new GetStockByIdUseCase(mockStockRepository);
 
-    expect(() => getStockByIdUseCase.execute("99")).toThrowError("stock not found");
+    expect(() => getStockByIdUseCase.execute("99")).toThrowError(
+      "stock not found",
+    );
   });
 });

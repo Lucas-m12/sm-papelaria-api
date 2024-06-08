@@ -12,7 +12,7 @@ export class Stock {
     productId: string,
     transactionType: TransactionType,
     quantity: number,
-    dateTime: Date
+    dateTime: Date,
   ) {
     this.#id = id;
     this.#productId = productId;
@@ -28,7 +28,7 @@ export class Stock {
       throw new Error("Quantity must be greater than 0");
     }
 
-    if (isNaN(this.#dateTime.getTime())) {
+    if (Number.isNaN(this.#dateTime.getTime())) {
       throw new Error("Invalid date");
     }
 

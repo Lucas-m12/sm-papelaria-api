@@ -12,7 +12,7 @@ export class Purchase {
     supplierId: string,
     quantity: number,
     purchasePrice: number,
-    purchaseDate: Date
+    purchaseDate: Date,
   ) {
     this.#id = id;
     this.#productId = productId;
@@ -33,7 +33,7 @@ export class Purchase {
       throw new Error("Purchase price must be greater than 0");
     }
 
-    if (isNaN(this.#purchaseDate.getTime())) {
+    if (Number.isNaN(this.#purchaseDate.getTime())) {
       throw new Error("Invalid date");
     }
 
@@ -88,4 +88,4 @@ export class Purchase {
   get purchaseDate() {
     return this.#purchaseDate;
   }
-};
+}

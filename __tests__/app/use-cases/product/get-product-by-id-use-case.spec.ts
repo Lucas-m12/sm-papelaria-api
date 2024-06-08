@@ -7,21 +7,21 @@ describe("GetProductByIdUseCase", () => {
   it("should return a product by id", async () => {
     const mockProductRepository = new MockProductRepository();
     const getProductByIdUseCase = new GetProductByIdUseCase(
-      mockProductRepository
+      mockProductRepository,
     );
 
     const product = new Product(
-      '1',
+      "1",
       "Notebook",
       "NB001",
       "A high-quality notebook",
-      "Stationery"
+      "Stationery",
     );
     await mockProductRepository.save(product);
 
-    const foundProduct = await getProductByIdUseCase.execute('1');
+    const foundProduct = await getProductByIdUseCase.execute("1");
     expect(foundProduct).not.toBeNull();
-    expect(foundProduct?.id).toBe('1');
+    expect(foundProduct?.id).toBe("1");
     expect(foundProduct?.name).toBe("Notebook");
     expect(foundProduct?.code).toBe("NB001");
     expect(foundProduct?.description).toBe("A high-quality notebook");
@@ -31,9 +31,11 @@ describe("GetProductByIdUseCase", () => {
   it("should throw if product not found", async () => {
     const mockProductRepository = new MockProductRepository();
     const getProductByIdUseCase = new GetProductByIdUseCase(
-      mockProductRepository
+      mockProductRepository,
     );
 
-    expect(() => getProductByIdUseCase.execute('99')).toThrow('Product not found');
+    expect(() => getProductByIdUseCase.execute("99")).toThrow(
+      "Product not found",
+    );
   });
 });

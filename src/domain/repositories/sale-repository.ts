@@ -1,4 +1,4 @@
-import { Sale } from "../entities/sale";
+import type { Sale } from "../entities/sale";
 
 export interface SaleRepository {
   findAll(): Promise<Sale[]>;

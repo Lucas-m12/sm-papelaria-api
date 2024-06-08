@@ -1,7 +1,6 @@
 import type { Product } from "../../../../src/domain/entities/product";
 import type { ProductRepository } from "../../../../src/domain/repositories/product-repository";
 
-
 export class MockProductRepository implements ProductRepository {
   private products: Product[] = [];
 

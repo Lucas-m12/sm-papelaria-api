@@ -7,10 +7,17 @@ import { DeleteProductUseCase } from "../../../app/use-cases/product/delete-prod
 import { GetAllProductsUseCase } from "../../../app/use-cases/product/get-all-products-use-case";
 import { GetProductByIdUseCase } from "../../../app/use-cases/product/get-product-by-id-use-case";
 import { UpdateProductUseCase } from "../../../app/use-cases/product/update-product-use-case";
-import { ValidationAdapter, ValidationError } from "../../../app/validators/validation-adapter";
+import {
+  ValidationAdapter,
+  ValidationError,
+} from "../../../app/validators/validation-adapter";
 import { S3StorageService } from "../../adapters/s3-storage-service";
 import { PrismaProductRepository } from "../../persistence/prisma-product-repository";
-import type { HttpNextFunction, HttpRequest, HttpResponse } from "../http-adapter";
+import type {
+  HttpNextFunction,
+  HttpRequest,
+  HttpResponse,
+} from "../http-adapter";
 
 const productRepository = new PrismaProductRepository();
 
@@ -18,15 +25,15 @@ export class ProductController {
   async index(
     request: HttpRequest,
     response: HttpResponse,
-    next: HttpNextFunction
+    next: HttpNextFunction,
   ) {
     try {
       const { page, pageSize } = ValidationAdapter.validate(
         GetAllProductsSchema,
-        request.query
+        request.query,
       );
       const getAllProductsUseCase = new GetAllProductsUseCase(
-        productRepository
+        productRepository,
       );
       await getAllProductsUseCase.execute({ page, pageSize });
       return response
@@ -44,12 +51,12 @@ export class ProductController {
   async show(
     request: HttpRequest,
     response: HttpResponse,
-    next: HttpNextFunction
+    next: HttpNextFunction,
   ) {
     try {
       const { id } = request.params;
       const getProductByIdUseCase = new GetProductByIdUseCase(
-        productRepository
+        productRepository,
       );
       const product = await getProductByIdUseCase.execute(id);
       return response.status(200).json(product);
@@ -65,24 +72,27 @@ export class ProductController {
   async create(
     request: HttpRequest,
     response: HttpResponse,
-    next: HttpNextFunction
+    next: HttpNextFunction,
   ) {
     try {
-      const productDTO = ValidationAdapter.validate(
+      const productDto = ValidationAdapter.validate(
         CreateProductSchema,
-        request.body
+        request.body,
       );
       const createProductUseCase = new CreateProductUseCase(productRepository);
-      const product = await createProductUseCase.execute(productDTO);
+      const product = await createProductUseCase.execute(productDto);
       let presignedUrl: string | null = null;
-      if (productDTO?.filename) {
+      if (productDto?.filename) {
         const storageService = new S3StorageService();
-        const createUrlToUploadImage = new CreateUrlToUploadImage(storageService);
-        presignedUrl = await createUrlToUploadImage.execute(productDTO.filename, product);
+        const createUrlToUploadImage = new CreateUrlToUploadImage(
+          storageService,
+        );
+        presignedUrl = await createUrlToUploadImage.execute(
+          productDto.filename,
+          product,
+        );
       }
-      return response
-        .status(201)
-        .json({ product, presignedUrl });
+      return response.status(201).json({ product, presignedUrl });
     } catch (error) {
       if (error instanceof ValidationError) {
         response.status(400).json({ errors: error.zodError.errors });
@@ -95,12 +105,12 @@ export class ProductController {
   async update(
     request: HttpRequest,
     response: HttpResponse,
-    next: HttpNextFunction
+    next: HttpNextFunction,
   ): Promise<void> {
     try {
       const { id } = request.params;
       const { name, code, description, category } = request.body;
-      const productDTO = ValidationAdapter.validate(UpdateProductSchema, {
+      const productDto = ValidationAdapter.validate(UpdateProductSchema, {
         id,
         name,
         code,
@@ -108,7 +118,7 @@ export class ProductController {
         category,
       });
       const updateProductUseCase = new UpdateProductUseCase(productRepository);
-      await updateProductUseCase.execute(productDTO);
+      await updateProductUseCase.execute(productDto);
       response.status(200).json({ message: "Product updated successfully" });
     } catch (error) {
       if (error instanceof ValidationError) {
@@ -122,7 +132,7 @@ export class ProductController {
   async delete(
     request: HttpRequest,
     response: HttpResponse,
-    next: HttpNextFunction
+    next: HttpNextFunction,
   ): Promise<void> {
     try {
       const { id } = request.params;

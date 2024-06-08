@@ -16,7 +16,7 @@ export class StockDTO {
       stock.productId,
       stock.transactionType,
       stock.quantity,
-      stock.dateTime
+      stock.dateTime,
     );
   }
 }

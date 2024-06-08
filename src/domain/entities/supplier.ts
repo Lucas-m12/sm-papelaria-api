@@ -4,7 +4,12 @@ export class Supplier {
   #contact?: string | null;
   #address?: string | null;
 
-  constructor(id: string, name: string, contact?: string | null, address?: string | null) {
+  constructor(
+    id: string,
+    name: string,
+    contact?: string | null,
+    address?: string | null,
+  ) {
     this.#id = id;
     this.#name = name;
     this.#contact = contact;
@@ -46,5 +51,4 @@ export class Supplier {
   get address() {
     return this.#address;
   }
-  
 }

@@ -2,7 +2,11 @@ import { ApplicationError } from "../../app/errors/application-error";
 import { ValidationError } from "../../app/validators/validation-adapter";
 import type { HttpRequest, HttpResponse } from "./http-adapter";
 
-export const httpErrorHandler = (err: Error, req: HttpRequest, res: HttpResponse) => {
+export const httpErrorHandler = (
+  err: Error,
+  req: HttpRequest,
+  res: HttpResponse,
+) => {
   if (err instanceof ValidationError) {
     return res.status(400).json({ errors: err.zodError.errors });
   }

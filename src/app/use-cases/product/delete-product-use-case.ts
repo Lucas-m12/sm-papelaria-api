@@ -1,6 +1,5 @@
 import type { ProductRepository } from "../../../domain/repositories/product-repository";
 
-
 export class DeleteProductUseCase {
   constructor(private productRepository: ProductRepository) {}
 

@@ -1,4 +1,4 @@
-import { Stock } from "../entities/stock";
+import type { Stock } from "../entities/stock";
 
 export interface StockRepository {
   findAll(): Promise<Stock[]>;

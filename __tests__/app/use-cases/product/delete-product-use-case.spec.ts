@@ -7,21 +7,21 @@ describe("DeleteProductUseCase", () => {
   it("should delete a product by id", async () => {
     const mockProductRepository = new MockProductRepository();
     const deleteProductUseCase = new DeleteProductUseCase(
-      mockProductRepository
+      mockProductRepository,
     );
 
     const product = new Product(
-      '1',
+      "1",
       "Notebook",
       "NB001",
       "A high-quality notebook",
-      "Stationery"
+      "Stationery",
     );
     await mockProductRepository.save(product);
 
-    await deleteProductUseCase.execute('1');
+    await deleteProductUseCase.execute("1");
 
-    const deletedProduct = await mockProductRepository.findById('1');
+    const deletedProduct = await mockProductRepository.findById("1");
     expect(deletedProduct).toBeNull();
   });
 });

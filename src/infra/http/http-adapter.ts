@@ -10,13 +10,13 @@ export interface HttpResponse {
   setHeader(name: string, value: string): void;
 }
 
-export interface HttpNextFunction {
-  (err?: Error): void;
-}
+export type HttpNextFunction = (err?: Error) => void;
 
-export interface HttpHandler {
-  (req: HttpRequest, res: HttpResponse, next: HttpNextFunction): void;
-}
+export type HttpHandler = (
+  req: HttpRequest,
+  res: HttpResponse,
+  next: HttpNextFunction,
+) => void;
 
 export interface HttpAdapter {
   post(path: string, handler: HttpHandler): void;

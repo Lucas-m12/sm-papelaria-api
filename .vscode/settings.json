@@ -1,0 +1,184 @@
+{
+	// Workbench
+	"workbench.iconTheme": "material-icon-theme",
+	"workbench.colorTheme": "Dracula Pro",
+	"workbench.editor.labelFormat": "short",
+	"workbench.startupEditor": "newUntitledFile",
+
+	// extra
+	"files.associations": {
+		".env.*": "dotenv",
+		".prettierrc": "json",
+		"*.css": "css"
+	},
+	"symbols.files.associations": {
+		"*.module.ts": "nest",
+		"*.guard.ts": "typescript",
+		"*.spec.ts": "ts-test",
+		"*.e2e-spec.ts": "ts-test",
+		"vitest.config.e2e.ts": "vite",
+		".env.example": "gear"
+	},
+	"typescript.suggest.autoImports": true,
+	"cSpell.language": "en,pt",
+	"files.exclude": {
+		"**/CVS": true,
+		"**/.DS_Store": true,
+		"**/.hg": true,
+		"**/.svn": true,
+		"**/.git": true,
+		".vscode": true
+		// "node_modules": true
+	},
+
+	// Editor settings
+	"editor.wordWrap": "on",
+	"editor.fontSize": 20,
+	"editor.lineHeight": 38,
+	"terminal.integrated.fontSize": 14,
+	"editor.tabSize": 2,
+	"editor.fontFamily": "Fira Code",
+	"editor.fontLigatures": true,
+	"editor.renderLineHighlight": "gutter",
+	// "editor.rulers": [80, 120],
+	"editor.parameterHints.enabled": false,
+	"editor.semanticHighlighting.enabled": true,
+	"editor.bracketPairColorization.enabled": true,
+	"editor.formatOnPaste": true,
+	"editor.formatOnType": true,
+	"formattingToggle.affects": ["editor.codeActionsOnSave.source.fixAll.eslint"],
+	"editor.codeActionsOnSave": {
+		"source.organizeImports.biome": "explicit",
+		"quickfix.biome": "explicit",
+		"source.fixAll.eslint": "always"
+	},
+	"[prisma]": {
+		"editor.defaultFormatter": "Prisma.prisma",
+		"editor.formatOnSave": true
+	},
+
+	// VSCode stuff
+	"breadcrumbs.enabled": true,
+	"explorer.compactFolders": false,
+	"explorer.confirmDragAndDrop": false,
+	"explorer.confirmDelete": false,
+	"typescript.updateImportsOnFileMove.enabled": "always",
+	"javascript.suggest.autoImports": true,
+	"javascript.updateImportsOnFileMove.enabled": "always",
+
+	// Emmet
+	"emmet.syntaxProfiles": { "javascript": "jsx" },
+	"emmet.includeLanguages": { "javascript": "javascriptreact" },
+
+	// Extensions
+	// "extensions.ignoreRecommendations": true,
+	"diffEditor.ignoreTrimWhitespace": false,
+	"material-icon-theme.folders.associations": {
+		"domain": "core",
+		"infra": "app",
+		"main": "public",
+		"presentation": "connection",
+		"cryptography": "secure",
+		"entities": "class",
+		"repositories": "mappings",
+		"protocols": "resource",
+		"useCases": "components",
+		"use-cases": "components",
+		"subcomponents": "components",
+		"adapters": "connection",
+		"factories": "container",
+		"globals": "global",
+		"ui": "views"
+	},
+	"material-icon-theme.files.associations": {
+		"ormconfig.json": "database",
+		"tsconfig.json": "tune",
+		".lintstagedrc.json": "tune"
+	},
+	"polacode.transparentBackground": true,
+	"polacode.shadow": "none",
+	// "github.copilot.enable": {
+	//   "*": true,
+	//   "yaml": false,
+	//   "plaintext": true,
+	//   "markdown": false
+	// },
+	"gitlens.defaultDateFormat": null,
+	"gitlens.hovers.currentLine.over": "line",
+	// "liveServer.settings.donotShowInfoMsg": true,
+	"git.confirmSync": false,
+	// "editor.inlineSuggest.enabled": true,
+	// "editor.suggestSelection": "first",
+	// "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+	"bracketPairColorizer.depreciation-notice": false,
+	"editor.suggestSelection": "first",
+	"vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+	"yaml.schemas": {
+		"file:///Users/lucas.marinho/.vscode/extensions/atlassian.atlascode-2.10.12/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+	},
+	"redhat.telemetry.enabled": true,
+	"security.workspace.trust.untrustedFiles": "open",
+	"terminal.integrated.env.osx": {
+		"FIG_NEW_SESSION": "1"
+	},
+	"editor.accessibilitySupport": "off",
+	"[yaml]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"terminal.integrated.defaultProfile.osx": "zsh",
+	"jest.autoRun": {
+		"watch": false
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"RainbowBrackets.depreciation-notice": false,
+	"liveServer.settings.donotShowInfoMsg": true,
+
+	"tailwindCSS.experimental.classRegex": [
+		["tv\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+	],
+	"go.toolsManagement.autoUpdate": true,
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"yaml.customTags": [
+		"!And",
+		"!And sequence",
+		"!If",
+		"!If sequence",
+		"!Not",
+		"!Not sequence",
+		"!Equals",
+		"!Equals sequence",
+		"!Or",
+		"!Or sequence",
+		"!FindInMap",
+		"!FindInMap sequence",
+		"!Base64",
+		"!Join",
+		"!Join sequence",
+		"!Cidr",
+		"!Ref",
+		"!Sub",
+		"!Sub sequence",
+		"!GetAtt",
+		"!GetAZs",
+		"!ImportValue",
+		"!ImportValue sequence",
+		"!Select",
+		"!Select sequence",
+		"!Split",
+		"!Split sequence"
+	],
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "vscode.typescript-language-features"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"workbench.editor.empty.hint": "hidden",
+}

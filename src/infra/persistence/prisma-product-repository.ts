@@ -1,6 +1,6 @@
-import { Product } from '../../domain/entities/product';
-import type { ProductRepository } from '../../domain/repositories/product-repository';
-import { prismaClient } from '../database/db';
+import { Product } from "../../domain/entities/product";
+import type { ProductRepository } from "../../domain/repositories/product-repository";
+import { prismaClient } from "../database/db";
 
 export class PrismaProductRepository implements ProductRepository {
   async findAll(page = 1, pageSize = 10): Promise<Product[]> {
@@ -8,14 +8,15 @@ export class PrismaProductRepository implements ProductRepository {
       take: pageSize,
       skip: (page - 1) * pageSize,
     });
-    return products.map((product) =>
-      new Product(
-        product.id,
-        product.name,
-        product.code,
-        product.description,
-        product.category
-      )
+    return products.map(
+      (product) =>
+        new Product(
+          product.id,
+          product.name,
+          product.code,
+          product.description,
+          product.category,
+        ),
     );
   }
 
@@ -24,7 +25,13 @@ export class PrismaProductRepository implements ProductRepository {
     if (!product) {
       return null;
     }
-    return new Product(product.id, product.name, product.code, product.description, product.category);
+    return new Product(
+      product.id,
+      product.name,
+      product.code,
+      product.description,
+      product.category,
+    );
   }
 
   async save(product: Product): Promise<void> {

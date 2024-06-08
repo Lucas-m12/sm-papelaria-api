@@ -6,7 +6,7 @@ export class GetProductByIdUseCase {
 
   async execute(id: string): Promise<ProductDTO> {
     const product = await this.productRepository.findById(id);
-    if (!product) throw new Error('Product not found');
+    if (!product) throw new Error("Product not found");
     return ProductDTO.fromEntity(product);
   }
 }

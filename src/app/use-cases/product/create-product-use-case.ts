@@ -5,12 +5,12 @@ import type { CreateProductDTO } from "../../dtos/create-product-dto";
 export class CreateProductUseCase {
   constructor(private productRepository: ProductRepository) {}
 
-  async execute(productDTO: CreateProductDTO) {
+  async execute(productDto: CreateProductDTO) {
     const product = ProductFactory.create(
-      productDTO.name,
-      productDTO.code,
-      productDTO.description,
-      productDTO.category
+      productDto.name,
+      productDto.code,
+      productDto.description,
+      productDto.category,
     );
     await this.productRepository.save(product);
     return product;

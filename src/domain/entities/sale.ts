@@ -10,7 +10,7 @@ export class Sale {
     productId: string,
     quantity: number,
     salePrice: number,
-    saleDate: Date
+    saleDate: Date,
   ) {
     this.#id = id;
     this.#productId = productId;
@@ -30,7 +30,7 @@ export class Sale {
       throw new Error("Sale price must be greater than 0");
     }
 
-    if (isNaN(this.#saleDate.getTime())) {
+    if (Number.isNaN(this.#saleDate.getTime())) {
       throw new Error("Invalid date");
     }
 

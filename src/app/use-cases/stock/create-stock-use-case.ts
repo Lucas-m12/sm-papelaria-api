@@ -5,14 +5,14 @@ import type { StockDTO } from "../../dtos/stock-dto";
 export class CreateStockUseCase {
   constructor(private stockRepository: StockRepository) {}
 
-  async execute(stockDTO: StockDTO) {
+  async execute(stockDto: StockDTO) {
     const stock = new Stock(
-      stockDTO.id,
-      stockDTO.productId,
-      stockDTO.transactionType,
-      stockDTO.quantity,
-      stockDTO.dateTime
+      stockDto.id,
+      stockDto.productId,
+      stockDto.transactionType,
+      stockDto.quantity,
+      stockDto.dateTime,
     );
     await this.stockRepository.save(stock);
   }
-};
+}

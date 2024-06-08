@@ -1,7 +1,6 @@
 import { ExpressAdapter } from "./express-adapter";
 import { configureProductRoutes } from "./routes/product-routes";
 
-
 const app = new ExpressAdapter();
 const port = Number(process.env.PORT) || 3000;
 

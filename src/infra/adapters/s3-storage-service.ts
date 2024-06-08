@@ -1,4 +1,8 @@
-import { DeleteObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import {
+  DeleteObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import type { StorageService } from "../../domain/interfaces/storage-service";
 
@@ -7,9 +11,12 @@ export class S3StorageService implements StorageService {
 
   constructor() {
     this.#s3Client = new S3Client({});
-  } 
+  }
 
-  async getPresignedUploadUrl(bucketName: string, fileKey: string): Promise<string> {
+  async getPresignedUploadUrl(
+    bucketName: string,
+    fileKey: string,
+  ): Promise<string> {
     const command = new PutObjectCommand({
       Bucket: bucketName,
       Key: fileKey,

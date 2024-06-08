@@ -10,12 +10,12 @@ describe("UpdateStockUseCase", () => {
     const mockStockRepository = new MockStockRepository();
     const updateStockUseCase = new UpdateStockUseCase(mockStockRepository);
 
-    const stock = new Stock('1', '101', TransactionType.ENTRY, 50, new Date());
+    const stock = new Stock("1", "101", TransactionType.ENTRY, 50, new Date());
     await mockStockRepository.save(stock);
 
     const updatedStockDTO = new StockDTO(
-      '1',
-      '101',
+      "1",
+      "101",
       TransactionType.EXIT,
       30,
       new Date(),
@@ -23,10 +23,10 @@ describe("UpdateStockUseCase", () => {
 
     await updateStockUseCase.execute(updatedStockDTO);
 
-    const updatedStock = await mockStockRepository.findById('1');
+    const updatedStock = await mockStockRepository.findById("1");
     expect(updatedStock).not.toBeNull();
-    expect(updatedStock?.id).toBe('1');
-    expect(updatedStock?.productId).toBe('101');
+    expect(updatedStock?.id).toBe("1");
+    expect(updatedStock?.productId).toBe("101");
     expect(updatedStock?.transactionType).toBe(TransactionType.EXIT);
     expect(updatedStock?.quantity).toBe(30);
     expect(updatedStock?.dateTime).toBeInstanceOf(Date);
@@ -37,13 +37,15 @@ describe("UpdateStockUseCase", () => {
     const updateStockUseCase = new UpdateStockUseCase(mockStockRepository);
 
     const stockDTO = new StockDTO(
-      '1',
-      '101',
+      "1",
+      "101",
       TransactionType.ENTRY,
       50,
       new Date(),
     );
 
-    expect(() => updateStockUseCase.execute(stockDTO)).toThrowError("stock not found");
+    expect(() => updateStockUseCase.execute(stockDTO)).toThrowError(
+      "stock not found",
+    );
   });
 });

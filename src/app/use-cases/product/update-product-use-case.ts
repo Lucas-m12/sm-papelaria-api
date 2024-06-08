@@ -5,19 +5,19 @@ import type { UpdateProductDTO } from "../../dtos/update-product-dto";
 export class UpdateProductUseCase {
   constructor(private productRepository: ProductRepository) {}
 
-  async execute(productDTO: UpdateProductDTO): Promise<void> {
+  async execute(productDto: UpdateProductDTO): Promise<void> {
     const existingProduct = await this.productRepository.findById(
-      productDTO.id
+      productDto.id,
     );
     if (!existingProduct) {
-      throw new Error(`Product with id ${productDTO.id} does not exist`);
+      throw new Error(`Product with id ${productDto.id} does not exist`);
     }
     const product = ProductFactory.createWithId(
-      productDTO.id,
-      productDTO.name,
-      productDTO.code,
-      productDTO.description,
-      productDTO.category
+      productDto.id,
+      productDto.name,
+      productDto.code,
+      productDto.description,
+      productDto.category,
     );
     await this.productRepository.update(product);
   }

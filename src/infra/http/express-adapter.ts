@@ -1,9 +1,13 @@
-import express, { type NextFunction, type Request, type Response } from "express";
+import express, {
+  type NextFunction,
+  type Request,
+  type Response,
+} from "express";
 import type {
   HttpAdapter,
   HttpHandler,
   HttpRequest,
-  HttpResponse
+  HttpResponse,
 } from "./http-adapter";
 
 class ExpressRequest implements HttpRequest {
@@ -48,31 +52,31 @@ export class ExpressAdapter implements HttpAdapter {
 
   post(path: string, handler: HttpHandler): void {
     this.app.post(path, (req: Request, res: Response, next: NextFunction) =>
-      handler(new ExpressRequest(req), new ExpressResponse(res), next)
+      handler(new ExpressRequest(req), new ExpressResponse(res), next),
     );
   }
 
   get(path: string, handler: HttpHandler): void {
     this.app.get(path, (req: Request, res: Response, next: NextFunction) =>
-      handler(new ExpressRequest(req), new ExpressResponse(res), next)
+      handler(new ExpressRequest(req), new ExpressResponse(res), next),
     );
   }
 
   put(path: string, handler: HttpHandler): void {
     this.app.put(path, (req: Request, res: Response, next: NextFunction) =>
-      handler(new ExpressRequest(req), new ExpressResponse(res), next)
+      handler(new ExpressRequest(req), new ExpressResponse(res), next),
     );
   }
 
   delete(path: string, handler: HttpHandler): void {
     this.app.delete(path, (req: Request, res: Response, next: NextFunction) =>
-      handler(new ExpressRequest(req), new ExpressResponse(res), next)
+      handler(new ExpressRequest(req), new ExpressResponse(res), next),
     );
   }
 
   use(handler: HttpHandler): void {
     this.app.use((req: Request, res: Response, next: NextFunction) =>
-      handler(new ExpressRequest(req), new ExpressResponse(res), next)
+      handler(new ExpressRequest(req), new ExpressResponse(res), next),
     );
   }
 

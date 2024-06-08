@@ -12,7 +12,7 @@ export class ValidationAdapter {
 
 export class ValidationError extends Error {
   constructor(public zodError: ZodError) {
-    super('Validation Error');
-    this.name = 'ValidationError';
+    super("Validation Error");
+    this.name = "ValidationError";
   }
 }

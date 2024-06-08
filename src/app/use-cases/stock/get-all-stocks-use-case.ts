@@ -6,4 +6,4 @@ export class GetAllStocksUseCase {
   async execute() {
     return await this.stockRepository.findAll();
   }
-};
+}

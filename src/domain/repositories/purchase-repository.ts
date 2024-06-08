@@ -1,4 +1,4 @@
-import { Purchase } from "../entities/purchase";
+import type { Purchase } from "../entities/purchase";
 
 export interface PurchaseRepository {
   findAll(): Promise<Purchase[]>;

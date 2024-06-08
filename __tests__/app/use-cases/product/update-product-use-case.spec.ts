@@ -8,29 +8,29 @@ describe("UpdateProductUseCase", () => {
   it("should update a product successfully", async () => {
     const mockProductRepository = new MockProductRepository();
     const updateProductUseCase = new UpdateProductUseCase(
-      mockProductRepository
+      mockProductRepository,
     );
 
     const product = new Product(
-      '1',
+      "1",
       "Notebook",
       "NB001",
       "A high-quality notebook",
-      "Stationery"
+      "Stationery",
     );
     await mockProductRepository.save(product);
 
     const createdProduct = await mockProductRepository.findById("1");
 
     expect(createdProduct).not.toBeNull();
-    expect(createdProduct?.id).toBe('1');
+    expect(createdProduct?.id).toBe("1");
     expect(createdProduct?.name).toBe("Notebook");
     expect(createdProduct?.code).toBe("NB001");
     expect(createdProduct?.description).toBe("A high-quality notebook");
     expect(createdProduct?.category).toBe("Stationery");
 
     const updatedProductDTO = new ProductDTO(
-      '1',
+      "1",
       "Notebook Updated",
       "NB001",
       "An updated high-quality notebook",
@@ -39,23 +39,25 @@ describe("UpdateProductUseCase", () => {
 
     await updateProductUseCase.execute(updatedProductDTO);
 
-    const updatedProduct = await mockProductRepository.findById('1');
+    const updatedProduct = await mockProductRepository.findById("1");
     expect(updatedProduct).not.toBeNull();
-    expect(updatedProduct?.id).toBe('1');
+    expect(updatedProduct?.id).toBe("1");
     expect(updatedProduct?.name).toBe("Notebook Updated");
     expect(updatedProduct?.code).toBe("NB001");
-    expect(updatedProduct?.description).toBe("An updated high-quality notebook");
+    expect(updatedProduct?.description).toBe(
+      "An updated high-quality notebook",
+    );
     expect(updatedProduct?.category).toBe("Stationery");
   });
 
   it("should not update a product that does not exist", async () => {
     const mockProductRepository = new MockProductRepository();
     const updateProductUseCase = new UpdateProductUseCase(
-      mockProductRepository
+      mockProductRepository,
     );
 
     const productDTO = new ProductDTO(
-      '1',
+      "1",
       "Notebook",
       "NB001",
       "A high-quality notebook",
@@ -63,7 +65,7 @@ describe("UpdateProductUseCase", () => {
     );
 
     expect(() => updateProductUseCase.execute(productDTO)).toThrow(
-      "Product with id 1 does not exist"
+      "Product with id 1 does not exist",
     );
   });
 });
