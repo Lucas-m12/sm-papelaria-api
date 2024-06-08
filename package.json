@@ -16,7 +16,7 @@
     "migrate": "node-pg-migrate -d $DATABASE_URL -m src/infra/database/migrations -j ts",
     "migrate:create": "node-pg-migrate -m src/infra/database/migrations -j ts create",
     "ci:lint": "biome ci --reporter=github",
-    "start": "bun run ./src/infra/http/server.ts --target=bun --external '*'"
+    "start": "bunx prisma migrate deploy && bun run ./src/infra/http/server.ts --target=bun --external '*'"
   },
   "type": "module",
   "dependencies": {
