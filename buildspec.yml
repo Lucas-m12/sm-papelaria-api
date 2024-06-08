@@ -5,4 +5,6 @@ phases:
     commands:
       - curl -fsSL https://bun.sh/install | bash
       - cp /root/.bun/bin/* /usr/local/bin
+  build:
+    commands:
       - bun install --frozen-lockfile
