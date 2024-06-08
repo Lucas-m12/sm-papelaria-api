@@ -15,7 +15,7 @@ describe("CreateProductUseCase", () => {
       code: "NB001",
       description: "A high-quality notebook",
       category: "Stationery",
-    }
+    };
 
     await createProductUseCase.execute(productDTO);
 
@@ -27,5 +27,4 @@ describe("CreateProductUseCase", () => {
     expect(createdProduct?.description).toBe("A high-quality notebook");
     expect(createdProduct?.category).toBe("Stationery");
   });
-
 });
