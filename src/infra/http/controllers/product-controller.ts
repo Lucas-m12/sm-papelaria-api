@@ -35,10 +35,10 @@ export class ProductController {
       const getAllProductsUseCase = new GetAllProductsUseCase(
         productRepository,
       );
-      await getAllProductsUseCase.execute({ page, pageSize });
+      const products = await getAllProductsUseCase.execute({ page, pageSize });
       return response
         .status(200)
-        .json({ message: "Product created successfully" });
+        .json({ products });
     } catch (error) {
       if (error instanceof ValidationError) {
         response.status(400).json({ errors: error.zodError.errors });
