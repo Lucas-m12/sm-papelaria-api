@@ -4,9 +4,6 @@ on:
   pull_request: # Run on pull requests
     branches:
       - main
-  push: # Run on pushes to main
-    branches:
-      - main
 
 jobs:
   lint:
