@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     commands:
-      - bun i --frozen-lockfile
-  build:
+      - bun install --frozen-lockfile
+  post_build:
     commands:
-      - bun run build
+      - bun start
