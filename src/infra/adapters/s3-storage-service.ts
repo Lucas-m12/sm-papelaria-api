@@ -5,12 +5,15 @@ import {
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import type { StorageService } from "../../domain/interfaces/storage-service";
+import { env } from "../../shared/env";
 
 export class S3StorageService implements StorageService {
   #s3Client: S3Client;
 
   constructor() {
-    this.#s3Client = new S3Client({});
+    this.#s3Client = new S3Client({
+      endpoint: env("R2_ENDPOINT")
+    });
   }
 
   async getPresignedUploadUrl(
@@ -33,7 +36,8 @@ export class S3StorageService implements StorageService {
     await this.#s3Client.send(command);
   }
 
-  getFileUrl(bucketName: string, fileKey: string): Promise<string> {
-    return Promise.resolve(`https://${bucketName}.s3.amazonaws.com/${fileKey}`);
+  getFileUrl(bucketName: string, fileKey: string): string {
+    const endpoint = env("R2_ENDPOINT");
+    return `${endpoint}/${bucketName}/${fileKey}`;
   }
 }

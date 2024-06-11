@@ -38,7 +38,7 @@ export class ProductController {
       const products = await getAllProductsUseCase.execute({ page, pageSize });
       return response
         .status(200)
-        .json({ products });
+        .json(products);
     } catch (error) {
       if (error instanceof ValidationError) {
         response.status(400).json({ errors: error.zodError.errors });
@@ -86,13 +86,23 @@ export class ProductController {
         const storageService = new S3StorageService();
         const createUrlToUploadImage = new CreateUrlToUploadImage(
           storageService,
+          productRepository,
         );
         presignedUrl = await createUrlToUploadImage.execute(
           productDto.filename,
           product,
         );
       }
-      return response.status(201).json({ product, presignedUrl });
+      return response.status(201).json({ 
+        product: {
+          id: product.id,
+          name: product.name,
+          code: product.code,
+          description: product.description,
+          category: product.category,
+        }, 
+        presignedUrl 
+      });
     } catch (error) {
       if (error instanceof ValidationError) {
         response.status(400).json({ errors: error.zodError.errors });

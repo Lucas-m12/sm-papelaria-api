@@ -3,6 +3,7 @@ import { env as bunEnv } from "bun";
 interface EnvConfig {
   DATABASE_URL: string;
   BUCKET_NAME: string;
+  R2_ENDPOINT: string;
 }
 
 export const env = (key: keyof EnvConfig) => {

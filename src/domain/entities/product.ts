@@ -4,6 +4,7 @@ export class Product {
   #code: string;
   #description?: string | null;
   #category?: string | null;
+  #imageUrl?: string | null;
 
   constructor(
     id: string,
@@ -11,12 +12,14 @@ export class Product {
     code: string,
     description?: string | null,
     category?: string | null,
+    imageUrl?: string | null,
   ) {
     this.#id = id;
     this.#name = name;
     this.#code = code;
     this.#description = description;
     this.#category = category;
+    this.#imageUrl = imageUrl;
 
     this.#validate();
   }
@@ -59,5 +62,9 @@ export class Product {
 
   get category() {
     return this.#category;
+  }
+
+  get imageUrl() {
+    return this.#imageUrl;
   }
 }

@@ -16,6 +16,7 @@ export class PrismaProductRepository implements ProductRepository {
           product.code,
           product.description,
           product.category,
+          product.imageUrl,
         ),
     );
   }
@@ -60,5 +61,18 @@ export class PrismaProductRepository implements ProductRepository {
 
   async delete(id: string): Promise<void> {
     await prismaClient.product.delete({ where: { id } });
+  }
+
+  async findTotal(): Promise<number> {
+    return prismaClient.product.count();
+  }
+
+  async changeImage(productId: string, imageUrl: string): Promise<void> {
+    await prismaClient.product.update({
+      where: { id: productId },
+      data: {
+        imageUrl,
+      },
+    });
   }
 }
