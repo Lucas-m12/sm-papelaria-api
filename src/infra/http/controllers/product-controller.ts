@@ -30,7 +30,7 @@ export class ProductController {
     try {
       const { page, pageSize } = ValidationAdapter.validate(
         GetAllProductsSchema,
-        request.query,
+        { page: +request.query.page, pageSize: +request.query.pageSize },
       );
       const getAllProductsUseCase = new GetAllProductsUseCase(
         productRepository,
